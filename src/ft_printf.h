@@ -26,6 +26,8 @@ typedef struct s_struct
 	va_list		ap;
 	int			argsize;
 	char		*formatTmp;
+	int			retSize;
+	int			multiRet;
 }			   t_struct;
 
 void	ft_putchar(char c);
@@ -33,12 +35,8 @@ int		ft_strchar(char *str, char c);
 int		ft_strlen(char *str);
 char	*ft_strdup(char *str);
 int		ft_atoi(char *str);
-//void	ft_putstr(char *str);
-
-int		ft_printf(char *format, ...);
-t_struct *init(t_struct *Sprint);
-int		parse(char *format, int i, t_struct *Sprint);
-void	get_and_treat_arg(t_struct *Sprint);
+void	ft_putnstr(char *str, int n);
+char	*ft_strncpy(char *tmps, char *src, size_t len);
 
 void	wich_flag(char c, t_struct *Sprint);
 int		wich_size(char *format, int i, t_struct *Sprint);
