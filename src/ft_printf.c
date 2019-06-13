@@ -13,7 +13,10 @@ void	get_and_treat_arg(t_struct *Sprint)
 		ft_treat_s(Sprint);
 	}
 	if 	(Sprint->type == 'p')
-		Sprint->arg = (unsigned long int)va_arg(Sprint->ap, void *);
+	{
+		Sprint->arg = (long long int)va_arg(Sprint->ap, void *);
+		ft_treat_p(Sprint);
+	}
 	if (Sprint->type == 'd' || Sprint->type == 'i')
 	{
 		if (Sprint->size == 1)

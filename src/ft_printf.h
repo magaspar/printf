@@ -37,6 +37,11 @@ char	*ft_strdup(char *str);
 int		ft_atoi(char *str);
 void	ft_putnstr(char *str, int n);
 char	*ft_strncpy(char *tmps, char *src, size_t len);
+char	*ft_strneww(size_t size);
+char	*ft_strrev(char *str);
+int		ft_countnb(uintmax_t nbr, int baselen);
+char	*ft_itoabase(uintmax_t, char *base, int baselen);
+
 
 void	wich_flag(char c, t_struct *Sprint);
 int		wich_size(char *format, int i, t_struct *Sprint);
@@ -48,4 +53,8 @@ void	ft_treat_c(t_struct *Sprint);
 void	ft_treat_modulo(t_struct *Sprint);
 
 void	ft_treat_s(t_struct *Sprint);
+void	putblank(int i);
+
+void	ft_treat_p(t_struct *Sprint);
+
 #endif

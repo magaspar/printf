@@ -1,5 +1,90 @@
 #include "ft_printf.h"
 
+char	*ft_strneww(size_t size)
+{
+	char *str;
+	size_t i;
+
+	i = 0;
+	str = (char *)malloc(sizeof(char) * size + 1);
+	if (str == NULL)
+		return (NULL);
+	while (i < size)
+	{
+		str[i] = '\0';
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+char	*ft_strrev(char *str)
+{
+	int i;
+	int b;
+	char c;
+
+	i = 0;
+	b = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
+	i--;
+	while (i > b)
+	{
+		c = str[b];
+		str[b] = str[i];
+		str[i] = c;
+		b++;
+		i--;
+	}
+	return (str);
+}
+
+int		ft_countnb(uintmax_t nbr, int baselen)
+{
+	int		i;
+
+	i = 0;
+	if (nbr == 0)
+		return (1);
+	else
+	{
+		while (nbr)
+		{
+			nbr /= baselen;
+			i++;
+		}
+		return (i);
+	}
+}
+
+char	*ft_itoabase(uintmax_t nbr, char *base, int baselen)
+{
+	int tmp;
+	int i;
+	char *ret;
+
+	tmp = 0;
+	i = 0;
+	if ((ret = ft_strneww(ft_countnb(nbr, baselen))) == NULL)
+		return (NULL);
+	while (nbr != 0 || i == 0)
+	{
+		tmp = nbr % baselen;
+		tmp = (tmp < 0) ? -tmp : tmp;
+		ret[i] = base[tmp];
+		nbr /= baselen;
+		i++;
+	}
+	ret[i] = '\0';
+	ft_strrev(ret);
+	return (ret);
+}
+
+
+
 char		*ft_strncpy(char *dest, char *src, size_t n)
 {
 	unsigned int i;
