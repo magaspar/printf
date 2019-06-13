@@ -39,7 +39,7 @@ void	ft_treat_p(t_struct *Sprint)
 		{
 			putblank(Sprint->width - fields);
 			ft_putnstr("0x", 2);
-			ft_putnstr(tmps, fields);
+			ft_putnstr(tmps, fields - 2);
 		}
 		Sprint->retSize = Sprint->retSize + Sprint->width;
 	}
