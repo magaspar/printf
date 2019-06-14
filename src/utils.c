@@ -1,5 +1,73 @@
 #include "ft_printf.h"
 
+static int ft_intlen(long n)
+{
+	int i;
+
+	i = 0;
+	if (n == 0)
+		return (1);
+	if (n < 0)
+	{
+		n = -n;
+		i++;
+	}
+	while (n > 0)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
+}
+
+char *ft_itoa(long long n)
+{
+	char *str;
+	long i;
+	long j;
+
+	j = n;
+	i = ft_intlen(j);
+	if (!j)
+		return (str = ft_strdup("0"));
+	if (!(str = (char *)malloc(sizeof(char) * ft_intlen(j) + 1)))
+		return (NULL);
+	str[i--] = '\0';
+	if (j < 0)
+	{
+		j = -j;
+		str[0] = '-';
+	}
+	while (j > 0)
+	{
+		str[i] = j % 10 + '0';
+		j = j / 10;
+		i--;
+	}
+	return (str);
+}
+
+void		ft_putnbr(int nb)
+{
+	unsigned int n;
+
+	n = nb;
+	if (nb < 0)
+	{
+		ft_putchar('-');
+		n = nb * -1;
+	}
+	if (n >= 10)
+	{
+		ft_putnbr(n / 10);
+		ft_putnbr(n % 10);
+	}
+	else
+	{
+		ft_putchar(n + '0');
+	}
+}
+
 char	*ft_strneww(size_t size)
 {
 	char *str;
@@ -103,6 +171,18 @@ char		*ft_strncpy(char *dest, char *src, size_t n)
 	return (dest);
 }
 
+
+void		ft_putst(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+}
 
 void		ft_putnstr(char *str, int n)
 {

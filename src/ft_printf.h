@@ -41,6 +41,9 @@ char	*ft_strneww(size_t size);
 char	*ft_strrev(char *str);
 int		ft_countnb(uintmax_t nbr, int baselen);
 char	*ft_itoabase(uintmax_t, char *base, int baselen);
+void	ft_putnbr(int n);
+char	*ft_itoa(long long n);
+void	ft_putst(char *str);
 
 
 void	wich_flag(char c, t_struct *Sprint);
@@ -56,5 +59,8 @@ void	ft_treat_s(t_struct *Sprint);
 void	putblank(int i);
 
 void	ft_treat_p(t_struct *Sprint);
+
+void	ft_treat_d(t_struct *Sprint);
+void	putZer(int i);
 
 #endif

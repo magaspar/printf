@@ -3,12 +3,12 @@
 void	ft_treat_p(t_struct *Sprint)
 {
 	int i;
-
-	i = 0;
 	char *tmps;
-	tmps = ft_itoabase(Sprint->arg, "0123456789abcdef", 16);
 	int fields;
+
+	tmps = ft_itoabase(Sprint->arg, "0123456789abcdef", 16);
 	fields = ft_strlen(tmps) + 2;
+	i = 0;
 	if (Sprint->prec > 0 || Sprint->precZer == 1)
 	{
 		if (Sprint->precZer == 1)

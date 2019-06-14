@@ -27,6 +27,9 @@ void	get_and_treat_arg(t_struct *Sprint)
 			Sprint->arg = (long int)va_arg(Sprint->ap, long long int);
 		else if (Sprint->size == 4)
 			Sprint->arg = (long long int)va_arg(Sprint->ap, long long int);
+		else
+			Sprint->arg = (int)va_arg(Sprint->ap, long long int);
+		ft_treat_d(Sprint);
 	}
 	if (Sprint->type == 'o' || Sprint->type == 'u' ||
 	Sprint->type == 'x' || Sprint->type == 'X')

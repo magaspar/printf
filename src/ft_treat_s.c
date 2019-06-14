@@ -12,7 +12,7 @@ void	putblank(int n)
 
 void	ft_treat_s(t_struct *Sprint)
 {
-int fields;
+	int fields;
 
 	fields = 0;
 	if (Sprint->s_arg == NULL)
@@ -51,5 +51,4 @@ int fields;
 		}
 		Sprint->retSize = Sprint->retSize + Sprint->width;
 	}
-
-	}
+}
