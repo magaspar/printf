@@ -6,6 +6,10 @@ void	dispatch(t_struct *Sprint)
 	{
 		ft_treat_u(Sprint);
 	}
+	else if (Sprint->type == 'o')
+		ft_treat_o(Sprint);
+	else if (Sprint->type == 'x' || Sprint->type == 'X')
+		ft_treat_x(Sprint);
 }
 
 void	get_and_treat_arg(t_struct *Sprint)

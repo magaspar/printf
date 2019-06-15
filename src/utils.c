@@ -31,6 +31,8 @@ static unsigned long long ft_ulen(unsigned long long n)
 	{
 		n = n / 10;
 		i++;
+		if (i >= 21)
+			return(21);
 	}
 	return (i);
 }

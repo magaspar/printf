@@ -11,6 +11,8 @@ SRCS = src/ft_printf.c \
 	   src/ft_treat_p.c \
 	   src/ft_treat_d.c \
 	   src/ft_treat_u.c \
+	   src/ft_treat_o.c \
+	   src/ft_treat_x.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -67,4 +67,8 @@ void	putZer(int i);
 
 void	ft_treat_u(t_struct *Sprint);
 
+void	ft_treat_o(t_struct *Sprint);
+
+void	ft_treat_x(t_struct *sprint);
+
 #endif
