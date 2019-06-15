@@ -18,6 +18,7 @@ typedef struct s_struct
 	int			width;
 	int			size;
 	long long int	arg;
+	unsigned long long u_arg;
 	char			c_arg;
 	char			*s_arg;
 	int			sizeL;
@@ -42,7 +43,8 @@ char	*ft_strrev(char *str);
 int		ft_countnb(uintmax_t nbr, int baselen);
 char	*ft_itoabase(uintmax_t, char *base, int baselen);
 void	ft_putnbr(int n);
-char	*ft_itoa(long long n);
+char	*ft_itoa(long long int n);
+char	*ft_utoa(unsigned long long n);
 void	ft_putst(char *str);
 
 
@@ -62,5 +64,7 @@ void	ft_treat_p(t_struct *Sprint);
 
 void	ft_treat_d(t_struct *Sprint);
 void	putZer(int i);
+
+void	ft_treat_u(t_struct *Sprint);
 
 #endif

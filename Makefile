@@ -10,6 +10,7 @@ SRCS = src/ft_printf.c \
 	   src/wich_all.c \
 	   src/ft_treat_p.c \
 	   src/ft_treat_d.c \
+	   src/ft_treat_u.c \
 
 OBJS = $(SRCS:.c=.o)
 

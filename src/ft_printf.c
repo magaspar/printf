@@ -1,5 +1,13 @@
 #include "ft_printf.h"
 
+void	dispatch(t_struct *Sprint)
+{
+	if (Sprint->type == 'u')
+	{
+		ft_treat_u(Sprint);
+	}
+}
+
 void	get_and_treat_arg(t_struct *Sprint)
 {
 	if (Sprint->type == 'c')
@@ -35,13 +43,16 @@ void	get_and_treat_arg(t_struct *Sprint)
 	Sprint->type == 'x' || Sprint->type == 'X')
 	{
 		if (Sprint->size == 1)
-			Sprint->arg = (unsigned short)va_arg(Sprint->ap,  long long int);
+			Sprint->u_arg = (unsigned short)va_arg(Sprint->ap, unsigned int);
 		else if (Sprint->size == 2)
-			Sprint->arg = (unsigned char)va_arg(Sprint->ap, long long int);
+			Sprint->u_arg = (unsigned char)va_arg(Sprint->ap, unsigned int);
 		else if (Sprint->size == 3)
-			Sprint->arg = (unsigned long)va_arg(Sprint->ap, long long int);
+			Sprint->u_arg = (unsigned long)va_arg(Sprint->ap, unsigned long int);
 		else if (Sprint->size == 4)
-			Sprint->arg = (unsigned long long)va_arg(Sprint->ap, long long int);
+			Sprint->u_arg = (unsigned long long int)va_arg(Sprint->ap, unsigned long long int);
+		else
+			Sprint->u_arg = (unsigned int)va_arg(Sprint->ap, unsigned int);
+		dispatch(Sprint);
 	}
 	if (Sprint->type == '%')
 		ft_treat_modulo(Sprint);
@@ -91,6 +102,7 @@ void		reinit(t_struct *Sprint)
 	Sprint->precZer = 0;
 	Sprint->sizeL = 0;
 	Sprint->arg = 0;
+	Sprint->u_arg = 0;
 }
 
 t_struct	*init(t_struct *Sprint)
@@ -110,6 +122,7 @@ t_struct	*init(t_struct *Sprint)
 	Sprint->sizeL = 0;
 	Sprint->arg = 0;
 	Sprint->retSize = 0;
+	Sprint->u_arg = 0;
 		return (Sprint);
 }
 
@@ -140,7 +153,8 @@ int		ft_printf(char *format, ...)
 		}
 	}
 	ret = Sprint->retSize;
-	//free ? pour l'instant tout les malloc sont free a la fin car util
 	va_end(Sprint->ap);
+	free(Sprint);
+	free(formatt);
 	return (ret);
 }
