@@ -1,7 +1,7 @@
 #include "ft_printf.h"
 
 
-void	putZer(int i)
+int		putZer(int i)
 {
 	int j;
 
@@ -11,6 +11,7 @@ void	putZer(int i)
 		ft_putchar('0');
 		j++;
 	}
+	return(j);
 }
 
 void	ft_treat_d(t_struct *Sprint)

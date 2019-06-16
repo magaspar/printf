@@ -208,7 +208,7 @@ char		*ft_strncpy(char *dest, char *src, size_t n)
 }
 
 
-void		ft_putst(char *str)
+int			ft_putst(char *str)
 {
 	int i;
 
@@ -218,6 +218,7 @@ void		ft_putst(char *str)
 		ft_putchar(str[i]);
 		i++;
 	}
+	return (i);
 }
 
 void		ft_putnstr(char *str, int n)

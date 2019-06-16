@@ -21,6 +21,10 @@ void	ft_treat_x(t_struct *Sprint)
 			Sprint->retSize++;
 			ft_putchar(' ');
 		}
+		else
+		{
+			Sprint->retSize += putblank(Sprint->width);
+		}
 	}
 	else
 	{
@@ -29,83 +33,128 @@ void	ft_treat_x(t_struct *Sprint)
 		{
 			if (Sprint->flagDiese == 1 && Sprint->u_arg != 0)
 			{
-				fields++;
-				Sprint->retSize--;
+				fields += 2;
 			}
 			if (Sprint->flagSpace == 1)
-				ft_putchar(' ');
-			if (Sprint->flagPlus == 1 && min == 0)
-				ft_putchar('+');
-			if (min == 1)
 			{
-				ft_putchar('-');
+				ft_putchar(' ');
+				Sprint->retSize++;
+			}
+			if (Sprint->flagPlus == 1 && min == 0)
+			{
+				ft_putchar('+');
+				Sprint->retSize++;
 			}
 			if (Sprint->prec > ft_strlen(tmp))
 			{
 				if (Sprint->flagDiese == 1)
 				{
-					Sprint->retSize--;
-					i++;
+					i += 1;
+					Sprint->prec += 2;
 				}
 				while(i < Sprint->prec - ft_strlen(tmp))
 				{
+					if (min == 0)
+					{
+						min++;
+						Sprint->prec--;
+						if (Sprint->flagDiese == 1)
+						{
+							if (Sprint->type == 'x')
+								Sprint->retSize += ft_putst("0x");
+							else if(Sprint->type == 'X')
+								Sprint->retSize += ft_putst("0X");
+						}
+						else
+						{
+							ft_putchar('0');
+							Sprint->retSize++;
+						}
+					}
 					ft_putchar('0');
+					Sprint->retSize++;
 					i++;
 				}
-				Sprint->retSize += i;
 			}
-			if (Sprint->flagDiese && Sprint->u_arg != 0)
-				ft_putchar('0');
-			ft_putst(tmp);
-			Sprint->retSize += fields;
+			if (Sprint->flagDiese && Sprint->u_arg != 0 && min == 0)
+			{
+				if (Sprint->type == 'x')
+					Sprint->retSize += ft_putst("0x");
+				else if (Sprint->type == 'X')
+					Sprint->retSize += ft_putst("0X");
+			}
+			Sprint->retSize += ft_putst(tmp);
 		}
 		else if(fields < Sprint->width)
 		{
 			if (Sprint->flagMin == 1)
 			{
 				if (Sprint->flagDiese == 1)
-				{
-					fields++;
-					Sprint->retSize--;
-				}
+					fields += 2;
 				if (Sprint->flagSpace == 1)
+				{
+					Sprint->retSize++;
 					ft_putchar(' ');
+				}
 				if (Sprint->flagPlus == 1 && min == 0)
 				{
 					ft_putchar('+');
 					fields++;
+					Sprint->retSize++;
 				}
 				if (Sprint->prec > ft_strlen(tmp))
 				{
 					while(i < Sprint->prec - ft_strlen(tmp))
 					{
-						ft_putchar('0');
-						i++;
+						if (Sprint->flagDiese == 1)
+						{
+							if (min == 0)
+							{
+								i++;
+								min++;
+								if (Sprint->type == 'x')
+									Sprint->retSize += ft_putst("0x");
+								else if(Sprint->type == 'X')
+									Sprint->retSize += ft_putst("0X");
+							}
+						}
+						else
+						{
+							ft_putchar('0');
+							Sprint->retSize++;
+							i++;
+						}
 					}
 					if (Sprint->flagDiese == 1)
-						i--;
+						i -= 2;
 					fields += i;
-					Sprint->retSize += i + 1;
 				}
-				ft_putst(tmp);
-				putblank(Sprint->width - fields);
+				Sprint->retSize += ft_putst(tmp);
+				Sprint->retSize += putblank(Sprint->width - fields);
 			}
 			else
 			{
-				if (Sprint->flagDiese == 1)
-				{
-					Sprint->retSize--;
-					Sprint->prec++;
-				}
 				if (Sprint->flagSpace == 1)
+				{
+					Sprint->retSize++;
 					ft_putchar(' ');
+				}
 				if (Sprint->flagPlus == 1)
 				{
-					Sprint->retSize--;
 					fields++;
 				}
 				if (Sprint->flagZer == 1 && Sprint->prec == 0 && Sprint->precZer == 0)
-					putZer(Sprint->width - fields);
+				{
+					if (Sprint->flagDiese == 1 && Sprint->u_arg != 0)
+					{
+						if (Sprint->type == 'x')
+							Sprint->retSize += ft_putst("0x");
+						else if (Sprint->type == 'X')
+							Sprint->retSize += ft_putst("0X");
+						fields += 2;
+					}
+					Sprint->retSize += putZer(Sprint->width - fields);
+				}
 				else if (min != 1)
 				{
 					if (Sprint->prec > ft_strlen(tmp))
@@ -114,36 +163,32 @@ void	ft_treat_x(t_struct *Sprint)
 					}
 					if (Sprint->flagDiese == 1 && Sprint->u_arg != 0)
 					{
-						putblank(Sprint->width - fields - 1);
-						ft_putchar('0');
+						Sprint->retSize += putblank(Sprint->width - fields - 2);
+						if (Sprint->type == 'x')
+							Sprint->retSize += ft_putst("0x");
+						else if (Sprint->type == 'X')
+							Sprint->retSize += ft_putst("0X");
 					}
 					else
-						putblank(Sprint->width - fields);
+						Sprint->retSize += putblank(Sprint->width - fields);
 				}
 				if (Sprint->flagPlus == 1 && min == 0)
+				{
+					Sprint->retSize++;
 					ft_putchar('+');
+				}
 				if (Sprint->prec > ft_strlen(tmp))
 				{
 					while(i < Sprint->prec - ft_strlen(tmp))
 					{
+						Sprint->retSize++;
 						ft_putchar('0');
 						i++;
 					}
 				}
-				ft_putst(tmp);
+				Sprint->retSize += ft_putst(tmp);
 			}
-			Sprint->retSize = Sprint->retSize + Sprint->width;
 		}
-		if (Sprint->flagSpace == 1)
-		{
-			Sprint->retSize = Sprint->retSize + 1;
-		}
-		if (Sprint->flagPlus == 1 && min == 0)
-		{
-			Sprint->retSize = Sprint->retSize + 1;
-		}
-		if (Sprint->flagDiese == 1 && Sprint->u_arg != 0)
-			Sprint->retSize++;
 	}
 	free(tmp);
 }

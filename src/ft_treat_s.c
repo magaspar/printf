@@ -1,13 +1,14 @@
 #include "ft_printf.h"
 
 
-void	putblank(int n)
+int		putblank(int n)
 {
 	int i;
 
 	i = -1;
 	while (++i < n)
 		ft_putchar(' ');
+	return(i);
 }
 
 void	ft_treat_s(t_struct *Sprint)

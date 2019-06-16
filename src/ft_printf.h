@@ -45,7 +45,7 @@ char	*ft_itoabase(uintmax_t, char *base, int baselen);
 void	ft_putnbr(int n);
 char	*ft_itoa(long long int n);
 char	*ft_utoa(unsigned long long n);
-void	ft_putst(char *str);
+int		ft_putst(char *str);
 
 
 void	wich_flag(char c, t_struct *Sprint);
@@ -58,12 +58,12 @@ void	ft_treat_c(t_struct *Sprint);
 void	ft_treat_modulo(t_struct *Sprint);
 
 void	ft_treat_s(t_struct *Sprint);
-void	putblank(int i);
+int		putblank(int i);
 
 void	ft_treat_p(t_struct *Sprint);
 
 void	ft_treat_d(t_struct *Sprint);
-void	putZer(int i);
+int		putZer(int i);
 
 void	ft_treat_u(t_struct *Sprint);
 
