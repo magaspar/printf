@@ -21,7 +21,7 @@ void	ft_treat_u(t_struct *Sprint)
 	}
 	else
 	{
-		fields = ft_countnb(Sprint->u_arg, 10);
+		fields = ft_strlen(tmp);
 		if (fields >= Sprint->width)
 		{
 			if (Sprint->flagSpace == 1)
@@ -30,9 +30,9 @@ void	ft_treat_u(t_struct *Sprint)
 				ft_putchar('+');
 			if (min == 1)
 				ft_putchar('-');
-			if (Sprint->prec > ft_countnb(Sprint->u_arg, 10))
+			if (Sprint->prec > ft_strlen(tmp))
 			{
-				while(i < Sprint->prec - ft_countnb(Sprint->u_arg, 10))
+				while(i < Sprint->prec - ft_strlen(tmp))
 				{
 					ft_putchar('0');
 					i++;
@@ -62,9 +62,9 @@ void	ft_treat_u(t_struct *Sprint)
 			{
 				if (min == 1)
 				{
-					if (Sprint->prec > ft_countnb(Sprint->u_arg, 10))
+					if (Sprint->prec > ft_strlen(tmp))
 					{
-						fields = fields + (Sprint->prec - ft_countnb(Sprint->u_arg, 10));
+						fields = fields + (Sprint->prec - ft_strlen(tmp));
 					}
 					if (Sprint->flagZer != 1)
 						putblank(Sprint->width - fields);
@@ -81,17 +81,17 @@ void	ft_treat_u(t_struct *Sprint)
 					putZer(Sprint->width - fields);
 				else if (min != 1)
 				{
-					if (Sprint->prec > ft_countnb(Sprint->u_arg, 10))
+					if (Sprint->prec > ft_strlen(tmp))
 					{
-						fields = fields + (Sprint->prec - ft_countnb(Sprint->u_arg, 10));
+						fields = fields + (Sprint->prec - ft_strlen(tmp));
 					}
 					putblank(Sprint->width - fields);
 				}
 				if (Sprint->flagPlus == 1 && min == 0)
 					ft_putchar('+');
-				if (Sprint->prec > ft_countnb(Sprint->u_arg, 10))
+				if (Sprint->prec > ft_strlen(tmp))
 				{
-					while(i < Sprint->prec - ft_countnb(Sprint->u_arg, 10))
+					while(i < Sprint->prec - ft_strlen(tmp))
 					{
 						ft_putchar('0');
 						i++;

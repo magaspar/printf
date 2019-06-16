@@ -31,8 +31,8 @@ static unsigned long long ft_ulen(unsigned long long n)
 	{
 		n = n / 10;
 		i++;
-		if (i >= 21)
-			return(21);
+		if (i > 21)
+			return (21);
 	}
 	return (i);
 }
@@ -61,7 +61,7 @@ char *ft_itoa(long long int  j)
 	}
 	return (str);
 }
-char *ft_utoa(unsigned long long int  j)
+char *ft_utoa(unsigned long long int j)
 {
 	char *str;
 	long i;
@@ -69,7 +69,7 @@ char *ft_utoa(unsigned long long int  j)
 	i = ft_ulen(j);
 	if (!j)
 		return (str = ft_strdup("0"));
-	if (!(str = (char *)malloc(sizeof(char) * ft_intlen(j) + 1)))
+	if (!(str = (char *)malloc(sizeof(char) * ft_ulen(j) + 1)))
 		return (NULL);
 	str[i--] = '\0';
 	while (j > 0)
