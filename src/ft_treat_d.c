@@ -29,10 +29,16 @@ void	ft_treat_d(t_struct *Sprint)
 		tmp = ft_itoa(Sprint->arg);
 	if (Sprint->arg == 0 && Sprint->precZer == 1)
 	{
+		if (Sprint->flagPlus)
+		{
+			Sprint->retSize++;
+			ft_putchar('+');
+		}
 		if (Sprint->flagSpace == 1)
 		{
 			Sprint->retSize++;
 			ft_putchar(' ');
+			fields++;
 		}
 	}
 	else
@@ -49,12 +55,22 @@ void	ft_treat_d(t_struct *Sprint)
 		}
 		if (fields >= Sprint->width)
 		{
-			if (Sprint->flagSpace == 1)
+			if (Sprint->flagSpace == 1 && Sprint->prec == 0)
+			{
+				fields++;
 				ft_putchar(' ');
+				Sprint->retSize++;
+			}
 			if (Sprint->flagPlus == 1 && min == 0)
+			{
+				Sprint->retSize++;
 				ft_putchar('+');
+			}
 			if (min == 1)
+			{
 				ft_putchar('-');
+				Sprint->retSize++;
+			}
 			if (Sprint->prec > ft_countnb(Sprint->arg, 10))
 			{
 				while(i < Sprint->prec - ft_countnb(Sprint->arg, 10))
@@ -64,24 +80,31 @@ void	ft_treat_d(t_struct *Sprint)
 				}
 				Sprint->retSize += i;
 			}
-			ft_putst(tmp);
-			Sprint->retSize += fields;
+			Sprint->retSize += ft_putst(tmp);
 		}
 		else if(fields < Sprint->width)
 		{
 			if (Sprint->flagMin == 1)
 			{
-				if (Sprint->flagSpace == 1)
+				if (Sprint->flagSpace == 1 && Sprint->prec == 0)
+				{
+					fields++;
 					ft_putchar(' ');
+					Sprint->retSize++;
+				}
 				if (Sprint->flagPlus == 1 && min == 0)
 				{
+					Sprint->retSize++;
 					ft_putchar('+');
 					fields++;
 				}
 				if (min == 1)
+				{
 					ft_putchar('-');
-				ft_putst(tmp);
-				putblank(Sprint->width - fields);
+					Sprint->retSize++;
+				}
+				Sprint->retSize += ft_putst(tmp);
+				Sprint->retSize += putblank(Sprint->width - fields);
 			}
 			else
 			{
@@ -92,28 +115,35 @@ void	ft_treat_d(t_struct *Sprint)
 						fields = fields + (Sprint->prec - ft_countnb(Sprint->arg, 10));
 					}
 					if (Sprint->flagZer != 1)
-						putblank(Sprint->width - fields);
+						Sprint->retSize += putblank(Sprint->width - fields);
 					ft_putchar('-');
+					Sprint->retSize++;
 				}
-				if (Sprint->flagSpace == 1)
+				if (Sprint->flagSpace == 1 && Sprint->prec == 0)
+				{
+					fields++;
 					ft_putchar(' ');
+					Sprint->retSize++;
+				}
 				if (Sprint->flagPlus == 1)
 				{
-					Sprint->retSize--;
 					fields++;
 				}
 				if (Sprint->flagZer == 1 && Sprint->prec == 0 && Sprint->precZer == 0)
-					putZer(Sprint->width - fields);
+					Sprint->retSize += putZer(Sprint->width - fields);
 				else if (min != 1)
 				{
 					if (Sprint->prec > ft_countnb(Sprint->arg, 10))
 					{
 						fields = fields + (Sprint->prec - ft_countnb(Sprint->arg, 10));
 					}
-					putblank(Sprint->width - fields);
+					Sprint->retSize += putblank(Sprint->width - fields);
 				}
 				if (Sprint->flagPlus == 1 && min == 0)
+				{
 					ft_putchar('+');
+					Sprint->retSize++;
+				}
 				if (Sprint->prec > ft_countnb(Sprint->arg, 10))
 				{
 					while(i < Sprint->prec - ft_countnb(Sprint->arg, 10))
@@ -121,18 +151,10 @@ void	ft_treat_d(t_struct *Sprint)
 						ft_putchar('0');
 						i++;
 					}
+					Sprint->retSize += i;
 				}
-				ft_putst(tmp);
+				Sprint->retSize += ft_putst(tmp);
 			}
-			Sprint->retSize = Sprint->retSize + Sprint->width;
-		}
-		if (Sprint->flagSpace == 1)
-		{
-			Sprint->retSize = Sprint->retSize + 1;
-		}
-		if (Sprint->flagPlus == 1 && min == 0)
-		{
-			Sprint->retSize = Sprint->retSize + 1;
 		}
 	}
 	free(tmp);

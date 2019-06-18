@@ -2,11 +2,11 @@
 
 void	dispatch(t_struct *Sprint)
 {
-	if (Sprint->type == 'u')
+	if (Sprint->type == 'u' || Sprint->type == 'U')
 	{
 		ft_treat_u(Sprint);
 	}
-	else if (Sprint->type == 'o')
+	else if (Sprint->type == 'o' || Sprint->type == 'O')
 		ft_treat_o(Sprint);
 	else if (Sprint->type == 'x' || Sprint->type == 'X')
 		ft_treat_x(Sprint);
@@ -14,9 +14,12 @@ void	dispatch(t_struct *Sprint)
 
 void	get_and_treat_arg(t_struct *Sprint)
 {
-	if (Sprint->type == 'c')
+	if (Sprint->type == 'c' || Sprint->type == 'C')
 	{
-		Sprint->arg = (unsigned char)va_arg(Sprint->ap, int);
+		if (Sprint->type == 'c')
+			Sprint->arg = (unsigned char)va_arg(Sprint->ap, int);
+		else
+			Sprint->arg = (wint_t)va_arg(Sprint->ap, int);
 		ft_treat_c(Sprint);
 	}
 	if (Sprint->type == 's')
@@ -29,13 +32,13 @@ void	get_and_treat_arg(t_struct *Sprint)
 		Sprint->arg = (long long int)va_arg(Sprint->ap, void *);
 		ft_treat_p(Sprint);
 	}
-	if (Sprint->type == 'd' || Sprint->type == 'i')
+	if (Sprint->type == 'd' || Sprint->type == 'i' || Sprint->type == 'D')
 	{
 		if (Sprint->size == 1)
 			Sprint->arg = (short)va_arg(Sprint->ap,  long long int);
 		else if (Sprint->size == 2)
 			Sprint->arg = (char)va_arg(Sprint->ap, long long int);
-		else if (Sprint->size == 3)
+		else if (Sprint->size == 3 || Sprint->type == 'D')
 			Sprint->arg = (long int)va_arg(Sprint->ap, long long int);
 		else if (Sprint->size == 4)
 			Sprint->arg = (long long int)va_arg(Sprint->ap, long long int);
@@ -44,15 +47,15 @@ void	get_and_treat_arg(t_struct *Sprint)
 		ft_treat_d(Sprint);
 	}
 	if (Sprint->type == 'o' || Sprint->type == 'u' ||
-	Sprint->type == 'x' || Sprint->type == 'X')
+	Sprint->type == 'x' || Sprint->type == 'X' || Sprint->type == 'U' || Sprint->type == 'O')
 	{
 		if (Sprint->size == 1)
 			Sprint->u_arg = (unsigned short)va_arg(Sprint->ap, unsigned int);
 		else if (Sprint->size == 2)
 			Sprint->u_arg = (unsigned char)va_arg(Sprint->ap, unsigned int);
-		else if (Sprint->size == 3)
+		else if (Sprint->size == 3 || Sprint->type == 'U')
 			Sprint->u_arg = (unsigned long)va_arg(Sprint->ap, unsigned long int);
-		else if (Sprint->size == 4)
+		else if (Sprint->size == 4 || Sprint->size == 5 || Sprint->size == 6 || Sprint->type == 'O')
 			Sprint->u_arg = (unsigned long long int)va_arg(Sprint->ap, unsigned long long int);
 		else
 			Sprint->u_arg = (unsigned int)va_arg(Sprint->ap, unsigned int);
@@ -78,9 +81,9 @@ int		parse(char *format, int i, t_struct *Sprint)
 			i = wich_width(format, Sprint, i);
 		else if (ft_strchar(".", format[i]))
 			i = wich_prec(format, Sprint, i);
-		else if (ft_strchar("hlL", format[i]) == 1)
+		else if (ft_strchar("hlLzj", format[i]) == 1)
 			i = wich_size(format, i, Sprint);
-		else if (ft_strchar("diouxXcsfp%", format[i]) == 1)
+		else if (ft_strchar("dDioOuUxXcCsfp%", format[i]) == 1)
 		{
 			Sprint->argsize = j;
 			Sprint->type = format[i];

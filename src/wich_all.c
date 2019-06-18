@@ -48,6 +48,10 @@ int		wich_size(char *format, int i, t_struct *Sprint)
 		tmp = 3;
 	else if (format[i] == 'L')
 		Sprint->sizeL = 1;
+	else if (format[i] == 'z')
+		tmp = 5;
+	else if (format[i] == 'j')
+		tmp = 6;
 	if (tmp > Sprint->size)
 		Sprint->size = tmp;
 	return (i);

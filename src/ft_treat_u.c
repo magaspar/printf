@@ -55,6 +55,11 @@ void	ft_treat_u(t_struct *Sprint)
 				}
 				if (min == 1)
 					ft_putchar('-');
+				if (Sprint->prec > ft_strlen(tmp))
+				{
+					fields = fields + (Sprint->prec - ft_strlen(tmp));
+					Sprint->retSize += putZer(Sprint->prec - ft_strlen(tmp)) - 1;
+				}
 				ft_putst(tmp);
 				putblank(Sprint->width - fields);
 			}
