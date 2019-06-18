@@ -1,6 +1,6 @@
 NAME = libftprintf.a
 CC = gcc
-CFLAGS =
+CFLAGS = -Wall -Wextra -Werror
 
 SRCS = src/ft_printf.c \
 	   src/ft_treat_c.c \

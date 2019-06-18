@@ -20,9 +20,12 @@ void	ft_treat_d(t_struct *Sprint)
 	int min;
 	int i;
 	char *tmp;
+	int ut;
 
 	min = 0;
 	i = 0;
+	ut = 0;
+	fields = 0;
 	if (Sprint->arg < 0)
 		tmp = ft_itoa(-Sprint->arg);
 	else
@@ -103,8 +106,18 @@ void	ft_treat_d(t_struct *Sprint)
 					ft_putchar('-');
 					Sprint->retSize++;
 				}
-				Sprint->retSize += ft_putst(tmp);
-				Sprint->retSize += putblank(Sprint->width - fields);
+				if (Sprint->prec > ft_countnb(Sprint->arg, 10))
+				{
+					Sprint->retSize += putZer(Sprint->prec - ft_countnb(Sprint->arg, 10));
+					ut = Sprint->prec - ft_countnb(Sprint->arg, 10);
+					Sprint->retSize += ft_putst(tmp);
+					Sprint->retSize += putblank(Sprint->width - fields - ut);
+				}
+				else
+				{
+					Sprint->retSize += ft_putst(tmp);
+					Sprint->retSize += putblank(Sprint->width - fields);
+				}
 			}
 			else
 			{

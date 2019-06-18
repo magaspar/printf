@@ -136,6 +136,7 @@ t_struct	*init(t_struct *Sprint)
 int		ft_printf(char *format, ...)
 {
 	t_struct *Sprint;
+	Sprint = NULL;
 	Sprint = init(Sprint);
 	int i;
 	int ret;
