@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   utils.c                                          .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/06/20 17:06:26 by magaspar     #+#   ##    ##    #+#       */
+/*   Updated: 2019/06/20 17:13:27 by magaspar    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static int ft_intlen(long n)
+static int				ft_intlen(long n)
 {
 	int i;
 
@@ -20,7 +33,7 @@ static int ft_intlen(long n)
 	return (i);
 }
 
-static unsigned long long ft_ulen(unsigned long long n)
+static long long		ft_ulen(unsigned long long n)
 {
 	int i;
 
@@ -37,7 +50,7 @@ static unsigned long long ft_ulen(unsigned long long n)
 	return (i);
 }
 
-char *ft_itoa(long long int  j)
+char					*ft_itoa(long long int j)
 {
 	char *str;
 	long i;
@@ -61,7 +74,8 @@ char *ft_itoa(long long int  j)
 	}
 	return (str);
 }
-char *ft_utoa(unsigned long long int j)
+
+char					*ft_utoa(unsigned long long int j)
 {
 	char *str;
 	long i;
@@ -81,9 +95,7 @@ char *ft_utoa(unsigned long long int j)
 	return (str);
 }
 
-
-
-void		ft_putnbr(int nb)
+void					ft_putnbr(int nb)
 {
 	unsigned int n;
 
@@ -104,10 +116,10 @@ void		ft_putnbr(int nb)
 	}
 }
 
-char	*ft_strneww(size_t size)
+char					*ft_strneww(size_t size)
 {
-	char *str;
-	size_t i;
+	char		*str;
+	size_t		i;
 
 	i = 0;
 	str = (char *)malloc(sizeof(char) * size + 1);
@@ -122,11 +134,11 @@ char	*ft_strneww(size_t size)
 	return (str);
 }
 
-char	*ft_strrev(char *str)
+char					*ft_strrev(char *str)
 {
-	int i;
-	int b;
-	char c;
+	int		i;
+	int		b;
+	char	c;
 
 	i = 0;
 	b = 0;
@@ -146,7 +158,7 @@ char	*ft_strrev(char *str)
 	return (str);
 }
 
-int		ft_countnb(uintmax_t nbr, int baselen)
+int						ft_countnb(uintmax_t nbr, int baselen)
 {
 	int		i;
 
@@ -164,11 +176,11 @@ int		ft_countnb(uintmax_t nbr, int baselen)
 	}
 }
 
-char	*ft_itoabase(uintmax_t nbr, char *base, int baselen)
+char					*ft_itoabase(uintmax_t nbr, char *base, int baselen)
 {
-	int tmp;
-	int i;
-	char *ret;
+	int		tmp;
+	int		i;
+	char	*ret;
 
 	tmp = 0;
 	i = 0;
@@ -187,8 +199,6 @@ char	*ft_itoabase(uintmax_t nbr, char *base, int baselen)
 	return (ret);
 }
 
-
-
 char		*ft_strncpy(char *dest, char *src, size_t n)
 {
 	unsigned int i;
@@ -206,7 +216,6 @@ char		*ft_strncpy(char *dest, char *src, size_t n)
 	}
 	return (dest);
 }
-
 
 int			ft_putst(char *str)
 {
@@ -233,20 +242,20 @@ void		ft_putnstr(char *str, int n)
 	}
 }
 
-int		ft_strlen(char * str)
+int		ft_strlen(char *str)
 {
 	int i;
-	i = 0;
 
-	while(str[i] != '\0')
+	i = 0;
+	while (str[i] != '\0')
 		i++;
 	return (i);
 }
 
-char *ft_strdup(char *src)
+char	*ft_strdup(char *src)
 {
-	int n;
-	char *tab;
+	int		n;
+	char	*tab;
 
 	n = 0;
 	n = ft_strlen(src);
@@ -307,7 +316,7 @@ int		ft_atoi(char *str)
 		i++;
 	}
 	if (j)
-		return(-k);
+		return (-k);
 	else
-		return(k);
+		return (k);
 }

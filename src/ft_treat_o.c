@@ -1,158 +1,170 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_treat_o.c                                     .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/06/20 16:57:03 by magaspar     #+#   ##    ##    #+#       */
+/*   Updated: 2019/06/20 17:00:00 by magaspar    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-
-void	ft_treat_o(t_struct *Sprint)
+void	ft_treat_o(t_struct *sprint)
 {
-	int fields;
-	int min;
-	int i;
-	char *tmp;
+	int		fields;
+	int		min;
+	int		i;
+	char	*tmp;
 
 	min = 0;
 	i = 0;
-	tmp = ft_itoabase(Sprint->u_arg, "0123456789abcdef", 8);
-	if (Sprint->u_arg == 0 && Sprint->precZer == 1)
+	tmp = ft_itoabase(sprint->u_arg, "0123456789abcdef", 8);
+	if (sprint->u_arg == 0 && sprint->preczer == 1)
 	{
-		if (Sprint->flagSpace == 1)
+		if (sprint->flagspace == 1)
 		{
-			Sprint->retSize++;
+			sprint->retsize++;
 			ft_putchar(' ');
 		}
-		if (Sprint->flagDiese == 1)
+		if (sprint->flagdiese == 1)
 		{
-			Sprint->retSize++;
+			sprint->retsize++;
 			ft_putchar('0');
 		}
 	}
 	else
 	{
 		fields = ft_strlen(tmp);
-		if (fields >= Sprint->width)
+		if (fields >= sprint->width)
 		{
-			if (Sprint->flagDiese == 1 && Sprint->u_arg != 0)
+			if (sprint->flagdiese == 1 && sprint->u_arg != 0)
 				fields++;
-			if (Sprint->flagSpace == 1)
+			if (sprint->flagspace == 1)
 			{
-				Sprint->retSize++;
+				sprint->retsize++;
 				ft_putchar(' ');
 			}
-			if (Sprint->flagPlus == 1 && min == 0)
+			if (sprint->flagplus == 1 && min == 0)
 			{
-				Sprint->retSize++;
+				sprint->retsize++;
 				ft_putchar('+');
 			}
 			if (min == 1)
 			{
-				Sprint->retSize++;
+				sprint->retsize++;
 				ft_putchar('-');
 			}
-			if (Sprint->prec > ft_strlen(tmp))
+			if (sprint->prec > ft_strlen(tmp))
 			{
-				if (Sprint->flagDiese == 1)
+				if (sprint->flagdiese == 1)
 				{
-					if (Sprint->u_arg != 0)
+					if (sprint->u_arg != 0)
 						i++;
 				}
-				while(i < Sprint->prec - ft_strlen(tmp))
+				while (i < sprint->prec - ft_strlen(tmp))
 				{
-					Sprint->retSize++;
+					sprint->retsize++;
 					ft_putchar('0');
 					i++;
 				}
 			}
-			if (Sprint->flagDiese && Sprint->u_arg != 0)
+			if (sprint->flagdiese && sprint->u_arg != 0)
 			{
-				Sprint->retSize++;
+				sprint->retsize++;
 				ft_putchar('0');
 			}
-			Sprint->retSize += ft_putst(tmp);
+			sprint->retsize += ft_putst(tmp);
 		}
-		else if(fields < Sprint->width)
+		else if (fields < sprint->width)
 		{
-			if (Sprint->flagMin == 1)
+			if (sprint->flagmin == 1)
 			{
-				if (Sprint->flagDiese == 1)
+				if (sprint->flagdiese == 1)
 				{
 					fields++;
 				}
-				if (Sprint->flagSpace == 1)
+				if (sprint->flagspace == 1)
 				{
-					Sprint->retSize++;
+					sprint->retsize++;
 					ft_putchar(' ');
 				}
-				if (Sprint->flagPlus == 1 && min == 0)
+				if (sprint->flagplus == 1 && min == 0)
 				{
-					Sprint->retSize++;
+					sprint->retsize++;
 					ft_putchar('+');
 					fields++;
 				}
-				if (Sprint->prec > ft_strlen(tmp))
+				if (sprint->prec > ft_strlen(tmp))
 				{
-					while(i < Sprint->prec - ft_strlen(tmp))
+					while (i < sprint->prec - ft_strlen(tmp))
 					{
-						Sprint->retSize++;
+						sprint->retsize++;
 						ft_putchar('0');
 						i++;
 					}
-					if (Sprint->flagDiese == 1)
+					if (sprint->flagdiese == 1)
 						i--;
 					fields += i;
 				}
-				if (Sprint->flagDiese == 1 && Sprint->prec == 0)
+				if (sprint->flagdiese == 1 && sprint->prec == 0)
 				{
-					Sprint->retSize++;
+					sprint->retsize++;
 					ft_putchar('0');
 				}
-				Sprint->retSize += ft_putst(tmp);
-				Sprint->retSize += putblank(Sprint->width - fields);
+				sprint->retsize += ft_putst(tmp);
+				sprint->retsize += putblank(sprint->width - fields);
 			}
 			else
 			{
-								if (Sprint->flagSpace == 1)
+				if (sprint->flagspace == 1)
 				{
-					Sprint->retSize++;
+					sprint->retsize++;
 					ft_putchar(' ');
 				}
-				if (Sprint->flagPlus == 1)
+				if (sprint->flagplus == 1)
 				{
 					fields++;
 				}
-				if (Sprint->flagZer == 1 && Sprint->prec == 0 && Sprint->precZer == 0)
-					Sprint->retSize += putZer(Sprint->width - fields);
+				if (sprint->flagzer == 1 && sprint->prec == 0 && sprint->preczer == 0)
+					sprint->retsize += putzer(sprint->width - fields);
 				else if (min != 1)
 				{
-					if (Sprint->prec > ft_strlen(tmp))
+					if (sprint->prec > ft_strlen(tmp))
 					{
-						fields = fields + (Sprint->prec - ft_strlen(tmp));
+						fields = fields + (sprint->prec - ft_strlen(tmp));
 					}
-					if (Sprint->flagDiese == 1 && Sprint->u_arg != 0)
+					if (sprint->flagdiese == 1 && sprint->u_arg != 0)
 					{
-						Sprint->retSize += putblank(Sprint->width - fields - 1);
+						sprint->retsize += putblank(sprint->width - fields - 1);
 						ft_putchar('0');
-						Sprint->retSize++;
+						sprint->retsize++;
 					}
 					else
-						Sprint->retSize += putblank(Sprint->width - fields);
+						sprint->retsize += putblank(sprint->width - fields);
 				}
-				if (Sprint->flagPlus == 1 && min == 0)
+				if (sprint->flagplus == 1 && min == 0)
 				{
-					Sprint->retSize++;
+					sprint->retsize++;
 					ft_putchar('+');
 				}
-				if (Sprint->flagDiese == 1)
+				if (sprint->flagdiese == 1)
 				{
-					Sprint->prec++;
+					sprint->prec++;
 				}
-				if (Sprint->prec > ft_strlen(tmp))
+				if (sprint->prec > ft_strlen(tmp))
 				{
-					while(i < Sprint->prec - ft_strlen(tmp))
+					while (i < sprint->prec - ft_strlen(tmp))
 					{
 						ft_putchar('0');
 						i++;
-						Sprint->retSize++;
+						sprint->retsize++;
 					}
 				}
-				Sprint->retSize += ft_putst(tmp);
+				sprint->retsize += ft_putst(tmp);
 			}
 		}
 	}

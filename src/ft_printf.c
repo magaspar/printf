@@ -1,168 +1,186 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_printf.c                                      .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/06/20 16:56:18 by magaspar     #+#   ##    ##    #+#       */
+/*   Updated: 2019/06/20 17:21:19 by magaspar    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-void	dispatch(t_struct *Sprint)
+void		dispatch(t_struct *sprint)
 {
-	if (Sprint->type == 'u' || Sprint->type == 'U')
+	if (sprint->type == 'u' || sprint->type == 'U')
 	{
-		ft_treat_u(Sprint);
+		ft_treat_u(sprint);
 	}
-	else if (Sprint->type == 'o' || Sprint->type == 'O')
-		ft_treat_o(Sprint);
-	else if (Sprint->type == 'x' || Sprint->type == 'X')
-		ft_treat_x(Sprint);
+	else if (sprint->type == 'o' || sprint->type == 'O')
+		ft_treat_o(sprint);
+	else if (sprint->type == 'x' || sprint->type == 'X')
+		ft_treat_x(sprint);
 }
 
-void	get_and_treat_arg(t_struct *Sprint)
+void		get_and_treat_arg(t_struct *sprint)
 {
-	if (Sprint->type == 'c' || Sprint->type == 'C')
+	if (sprint->type == 'c' || sprint->type == 'C')
 	{
-		if (Sprint->type == 'c')
-			Sprint->arg = (unsigned char)va_arg(Sprint->ap, int);
+		if (sprint->type == 'c')
+			sprint->arg = (unsigned char)va_arg(sprint->ap, int);
 		else
-			Sprint->arg = (wint_t)va_arg(Sprint->ap, int);
-		ft_treat_c(Sprint);
+			sprint->arg = (wint_t)va_arg(sprint->ap, int);
+		ft_treat_c(sprint);
 	}
-	if (Sprint->type == 's')
+	if (sprint->type == 's')
 	{
-		Sprint->s_arg = (char *)va_arg(Sprint->ap, char *);
-		ft_treat_s(Sprint);
+		sprint->s_arg = (char *)va_arg(sprint->ap, char *);
+		ft_treat_s(sprint);
 	}
-	if 	(Sprint->type == 'p')
+	if (sprint->type == 'p')
 	{
-		Sprint->arg = (long long int)va_arg(Sprint->ap, void *);
-		ft_treat_p(Sprint);
+		sprint->arg = (long long int)va_arg(sprint->ap, void *);
+		ft_treat_p(sprint);
 	}
-	if (Sprint->type == 'd' || Sprint->type == 'i' || Sprint->type == 'D')
+	if (sprint->type == 'd' || sprint->type == 'i' || sprint->type == 'D')
 	{
-		if (Sprint->size == 1)
-			Sprint->arg = (short)va_arg(Sprint->ap,  long long int);
-		else if (Sprint->size == 2)
-			Sprint->arg = (char)va_arg(Sprint->ap, long long int);
-		else if (Sprint->size == 3 || Sprint->type == 'D')
-			Sprint->arg = (long int)va_arg(Sprint->ap, long long int);
-		else if (Sprint->size == 4)
-			Sprint->arg = (long long int)va_arg(Sprint->ap, long long int);
+		if (sprint->size == 1)
+			sprint->arg = (short)va_arg(sprint->ap, long long int);
+		else if (sprint->size == 2)
+			sprint->arg = (char)va_arg(sprint->ap, long long int);
+		else if (sprint->size == 3 || sprint->type == 'D')
+			sprint->arg = (long int)va_arg(sprint->ap, long long int);
+		else if (sprint->size == 4)
+			sprint->arg = (long long int)va_arg(sprint->ap, long long int);
 		else
-			Sprint->arg = (int)va_arg(Sprint->ap, long long int);
-		ft_treat_d(Sprint);
+			sprint->arg = (int)va_arg(sprint->ap, long long int);
+		ft_treat_d(sprint);
 	}
-	if (Sprint->type == 'o' || Sprint->type == 'u' ||
-	Sprint->type == 'x' || Sprint->type == 'X' || Sprint->type == 'U' || Sprint->type == 'O')
+	if (sprint->type == 'o' || sprint->type == 'u' ||
+			sprint->type == 'x' || sprint->type == 'X' ||
+			sprint->type == 'U' || sprint->type == 'O')
 	{
-		if (Sprint->size == 1)
-			Sprint->u_arg = (unsigned short)va_arg(Sprint->ap, unsigned int);
-		else if (Sprint->size == 2)
-			Sprint->u_arg = (unsigned char)va_arg(Sprint->ap, unsigned int);
-		else if (Sprint->size == 3 || Sprint->type == 'U')
-			Sprint->u_arg = (unsigned long)va_arg(Sprint->ap, unsigned long int);
-		else if (Sprint->size == 4 || Sprint->size == 5 || Sprint->size == 6 || Sprint->type == 'O')
-			Sprint->u_arg = (unsigned long long int)va_arg(Sprint->ap, unsigned long long int);
+		if (sprint->size == 1)
+			sprint->u_arg = (unsigned short)va_arg(sprint->ap, unsigned int);
+		else if (sprint->size == 2)
+			sprint->u_arg = (unsigned char)va_arg(sprint->ap, unsigned int);
+		else if (sprint->size == 3 || sprint->type == 'U')
+			sprint->u_arg = (unsigned long)va_arg(sprint->ap,
+					unsigned long int);
+		else if (sprint->size == 4 || sprint->size == 5 ||
+				sprint->size == 6 || sprint->type == 'O')
+			sprint->u_arg = (unsigned long long int)va_arg(sprint->ap,
+					unsigned long long int);
 		else
-			Sprint->u_arg = (unsigned int)va_arg(Sprint->ap, unsigned int);
-		dispatch(Sprint);
+			sprint->u_arg = (unsigned int)va_arg(sprint->ap, unsigned int);
+		dispatch(sprint);
 	}
-	if (Sprint->type == '%')
-		ft_treat_modulo(Sprint);
+	if (sprint->type == '%')
+		ft_treat_modulo(sprint);
 }
 
-//trouver une alternative pour pas cut avec j sinon prob
-int		parse(char *format, int i, t_struct *Sprint)
+int			parse(char *format, int i, t_struct *sprint)
 {
 	int j;
 	int n;
+
 	j = 3;
 	n = 0;
 	i++;
-	while(j != 1 && format[i] != '\0')
+	while (j != 1 && format[i] != '\0')
 	{
 		if (ft_strchar("#-+0 ", format[i]) == 1)
-			wich_flag(format[i], Sprint);
+			wich_flag(format[i], sprint);
 		else if (ft_strchar("123456789", format[i]))
-			i = wich_width(format, Sprint, i);
+			i = wich_width(format, sprint, i);
 		else if (ft_strchar(".", format[i]))
-			i = wich_prec(format, Sprint, i);
+			i = wich_prec(format, sprint, i);
 		else if (ft_strchar("hlLzj", format[i]) == 1)
-			i = wich_size(format, i, Sprint);
+			i = wich_size(format, i, sprint);
 		else if (ft_strchar("dDioOuUxXcCsfp%", format[i]) == 1)
 		{
-			Sprint->argsize = j;
-			Sprint->type = format[i];
+			sprint->argsize = j;
+			sprint->type = format[i];
 			j = 0;
 		}
-		i++;
 		j++;
+		i++;
 	}
-		return (i);
+	return (i);
 }
 
-void		reinit(t_struct *Sprint)
+void		reinit(t_struct *sprint)
 {
-	Sprint->type = 0;
-	Sprint->flagDiese = 0;
-	Sprint->flagPlus = 0;
-	Sprint->flagMin = 0;
-	Sprint->flagZer = 0;
-	Sprint->flagSpace = 0;
-	Sprint->size = 0;
-	Sprint->width = 0;
-	Sprint->prec = 0;
-	Sprint->precZer = 0;
-	Sprint->sizeL = 0;
-	Sprint->arg = 0;
-	Sprint->u_arg = 0;
+	sprint->type = 0;
+	sprint->flagdiese = 0;
+	sprint->flagplus = 0;
+	sprint->flagmin = 0;
+	sprint->flagzer = 0;
+	sprint->flagspace = 0;
+	sprint->size = 0;
+	sprint->width = 0;
+	sprint->prec = 0;
+	sprint->preczer = 0;
+	sprint->sizel = 0;
+	sprint->arg = 0;
+	sprint->u_arg = 0;
 }
 
-t_struct	*init(t_struct *Sprint)
+t_struct	*init(t_struct *sprint)
 {
-	if (!(Sprint = (t_struct*)malloc(sizeof(t_struct))))
+	if (!(sprint = (t_struct*)malloc(sizeof(t_struct))))
 		return (NULL);
-	Sprint->type = 0;
-	Sprint->flagDiese = 0;
-	Sprint->flagPlus = 0;
-	Sprint->flagMin = 0;
-	Sprint->flagZer = 0;
-	Sprint->flagSpace = 0;
-	Sprint->size = 0;
-	Sprint->width = 0;
-	Sprint->prec = 0;
-	Sprint->precZer = 0;
-	Sprint->sizeL = 0;
-	Sprint->arg = 0;
-	Sprint->retSize = 0;
-	Sprint->u_arg = 0;
-		return (Sprint);
+	sprint->type = 0;
+	sprint->flagdiese = 0;
+	sprint->flagplus = 0;
+	sprint->flagmin = 0;
+	sprint->flagzer = 0;
+	sprint->flagspace = 0;
+	sprint->size = 0;
+	sprint->width = 0;
+	sprint->prec = 0;
+	sprint->preczer = 0;
+	sprint->sizel = 0;
+	sprint->arg = 0;
+	sprint->retsize = 0;
+	sprint->u_arg = 0;
+	return (sprint);
 }
 
-int		ft_printf(char *format, ...)
+int			ft_printf(char *format, ...)
 {
-	t_struct *Sprint;
-	Sprint = NULL;
-	Sprint = init(Sprint);
-	int i;
-	int ret;
+	t_struct	*sprint;
+	int			i;
+	int			ret;
+	char		*formatt;
+
 	i = 0;
 	ret = 0;
-	char *formatt;
+	sprint = NULL;
+	sprint = init(sprint);
 	formatt = ft_strdup(format);
-	va_start(Sprint->ap, format);
-	while(formatt[i])
+	va_start(sprint->ap, format);
+	while (formatt[i])
 	{
 		if (formatt[i] == '%' && formatt[i + 1] != '\0')
 		{
-			i = parse(formatt, i, Sprint);
-			get_and_treat_arg(Sprint);
-			reinit(Sprint);
+			i = parse(formatt, i, sprint);
+			get_and_treat_arg(sprint);
+			reinit(sprint);
 		}
 		else if (formatt[i] != '\0')
 		{
 			ft_putchar(formatt[i]);
-			Sprint->retSize++;
+			sprint->retsize++;
 			i++;
 		}
 	}
-	ret = Sprint->retSize;
-	va_end(Sprint->ap);
-	free(Sprint);
+	ret = sprint->retsize;
+	va_end(sprint->ap);
+	free(sprint);
 	free(formatt);
 	return (ret);
 }

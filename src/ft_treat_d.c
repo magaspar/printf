@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_treat_d.c                                     .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/06/20 16:44:36 by magaspar     #+#   ##    ##    #+#       */
+/*   Updated: 2019/06/20 17:02:46 by magaspar    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-
-int		putZer(int i)
+int		putzer(int i)
 {
-	int j;
+	int		j;
 
 	j = 0;
 	while (j < i)
@@ -11,162 +23,162 @@ int		putZer(int i)
 		ft_putchar('0');
 		j++;
 	}
-	return(j);
+	return (j);
 }
 
-void	ft_treat_d(t_struct *Sprint)
+void	ft_treat_d(t_struct *sprint)
 {
-	int fields;
-	int min;
-	int i;
-	char *tmp;
-	int ut;
+	int		fields;
+	int		min;
+	int		i;
+	char	*tmp;
+	int		ut;
 
 	min = 0;
 	i = 0;
 	ut = 0;
 	fields = 0;
-	if (Sprint->arg < 0)
-		tmp = ft_itoa(-Sprint->arg);
+	if (sprint->arg < 0)
+		tmp = ft_itoa(-sprint->arg);
 	else
-		tmp = ft_itoa(Sprint->arg);
-	if (Sprint->arg == 0 && Sprint->precZer == 1)
+		tmp = ft_itoa(sprint->arg);
+	if (sprint->arg == 0 && sprint->preczer == 1)
 	{
-		if (Sprint->flagPlus)
+		if (sprint->flagplus)
 		{
-			Sprint->retSize++;
+			sprint->retsize++;
 			ft_putchar('+');
 		}
-		if (Sprint->flagSpace == 1)
+		if (sprint->flagspace == 1)
 		{
-			Sprint->retSize++;
+			sprint->retsize++;
 			ft_putchar(' ');
 			fields++;
 		}
 	}
 	else
 	{
-		if (Sprint->arg < 0)
+		if (sprint->arg < 0)
 		{
-			Sprint->arg = -Sprint->arg;
+			sprint->arg = -sprint->arg;
 			min = 1;
-			fields = ft_countnb(Sprint->arg, 10) + 1;
+			fields = ft_countnb(sprint->arg, 10) + 1;
 		}
 		else
 		{
-			fields = ft_countnb(Sprint->arg, 10);
+			fields = ft_countnb(sprint->arg, 10);
 		}
-		if (fields >= Sprint->width)
+		if (fields >= sprint->width)
 		{
-			if (Sprint->flagSpace == 1 && Sprint->prec == 0)
+			if (sprint->flagspace == 1 && sprint->prec == 0)
 			{
 				fields++;
 				ft_putchar(' ');
-				Sprint->retSize++;
+				sprint->retsize++;
 			}
-			if (Sprint->flagPlus == 1 && min == 0)
+			if (sprint->flagplus == 1 && min == 0)
 			{
-				Sprint->retSize++;
+				sprint->retsize++;
 				ft_putchar('+');
 			}
 			if (min == 1)
 			{
 				ft_putchar('-');
-				Sprint->retSize++;
+				sprint->retsize++;
 			}
-			if (Sprint->prec > ft_countnb(Sprint->arg, 10))
+			if (sprint->prec > ft_countnb(sprint->arg, 10))
 			{
-				while(i < Sprint->prec - ft_countnb(Sprint->arg, 10))
+				while (i < sprint->prec - ft_countnb(sprint->arg, 10))
 				{
 					ft_putchar('0');
 					i++;
 				}
-				Sprint->retSize += i;
+				sprint->retsize += i;
 			}
-			Sprint->retSize += ft_putst(tmp);
+			sprint->retsize += ft_putst(tmp);
 		}
-		else if(fields < Sprint->width)
+		else if (fields < sprint->width)
 		{
-			if (Sprint->flagMin == 1)
+			if (sprint->flagmin == 1)
 			{
-				if (Sprint->flagSpace == 1 && Sprint->prec == 0)
+				if (sprint->flagspace == 1 && sprint->prec == 0)
 				{
 					fields++;
 					ft_putchar(' ');
-					Sprint->retSize++;
+					sprint->retsize++;
 				}
-				if (Sprint->flagPlus == 1 && min == 0)
+				if (sprint->flagplus == 1 && min == 0)
 				{
-					Sprint->retSize++;
+					sprint->retsize++;
 					ft_putchar('+');
 					fields++;
 				}
 				if (min == 1)
 				{
 					ft_putchar('-');
-					Sprint->retSize++;
+					sprint->retsize++;
 				}
-				if (Sprint->prec > ft_countnb(Sprint->arg, 10))
+				if (sprint->prec > ft_countnb(sprint->arg, 10))
 				{
-					Sprint->retSize += putZer(Sprint->prec - ft_countnb(Sprint->arg, 10));
-					ut = Sprint->prec - ft_countnb(Sprint->arg, 10);
-					Sprint->retSize += ft_putst(tmp);
-					Sprint->retSize += putblank(Sprint->width - fields - ut);
+					sprint->retsize += putzer(sprint->prec - ft_countnb(sprint->arg, 10));
+					ut = sprint->prec - ft_countnb(sprint->arg, 10);
+					sprint->retsize += ft_putst(tmp);
+					sprint->retsize += putblank(sprint->width - fields - ut);
 				}
 				else
 				{
-					Sprint->retSize += ft_putst(tmp);
-					Sprint->retSize += putblank(Sprint->width - fields);
+					sprint->retsize += ft_putst(tmp);
+					sprint->retsize += putblank(sprint->width - fields);
 				}
 			}
 			else
 			{
 				if (min == 1)
 				{
-					if (Sprint->prec > ft_countnb(Sprint->arg, 10))
+					if (sprint->prec > ft_countnb(sprint->arg, 10))
 					{
-						fields = fields + (Sprint->prec - ft_countnb(Sprint->arg, 10));
+						fields = fields + (sprint->prec - ft_countnb(sprint->arg, 10));
 					}
-					if (Sprint->flagZer != 1)
-						Sprint->retSize += putblank(Sprint->width - fields);
+					if (sprint->flagzer != 1)
+						sprint->retsize += putblank(sprint->width - fields);
 					ft_putchar('-');
-					Sprint->retSize++;
+					sprint->retsize++;
 				}
-				if (Sprint->flagSpace == 1 && Sprint->prec == 0)
+				if (sprint->flagspace == 1 && sprint->prec == 0)
 				{
 					fields++;
 					ft_putchar(' ');
-					Sprint->retSize++;
+					sprint->retsize++;
 				}
-				if (Sprint->flagPlus == 1)
+				if (sprint->flagplus == 1)
 				{
 					fields++;
 				}
-				if (Sprint->flagZer == 1 && Sprint->prec == 0 && Sprint->precZer == 0)
-					Sprint->retSize += putZer(Sprint->width - fields);
+				if (sprint->flagzer == 1 && sprint->prec == 0 && sprint->preczer == 0)
+					sprint->retsize += putzer(sprint->width - fields);
 				else if (min != 1)
 				{
-					if (Sprint->prec > ft_countnb(Sprint->arg, 10))
+					if (sprint->prec > ft_countnb(sprint->arg, 10))
 					{
-						fields = fields + (Sprint->prec - ft_countnb(Sprint->arg, 10));
+						fields = fields + (sprint->prec - ft_countnb(sprint->arg, 10));
 					}
-					Sprint->retSize += putblank(Sprint->width - fields);
+					sprint->retsize += putblank(sprint->width - fields);
 				}
-				if (Sprint->flagPlus == 1 && min == 0)
+				if (sprint->flagplus == 1 && min == 0)
 				{
 					ft_putchar('+');
-					Sprint->retSize++;
+					sprint->retsize++;
 				}
-				if (Sprint->prec > ft_countnb(Sprint->arg, 10))
+				if (sprint->prec > ft_countnb(sprint->arg, 10))
 				{
-					while(i < Sprint->prec - ft_countnb(Sprint->arg, 10))
+					while (i < sprint->prec - ft_countnb(sprint->arg, 10))
 					{
 						ft_putchar('0');
 						i++;
 					}
-					Sprint->retSize += i;
+					sprint->retsize += i;
 				}
-				Sprint->retSize += ft_putst(tmp);
+				sprint->retsize += ft_putst(tmp);
 			}
 		}
 	}

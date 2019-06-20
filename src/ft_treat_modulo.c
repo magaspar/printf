@@ -1,54 +1,67 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_treat_modulo.c                                .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/06/20 16:45:36 by magaspar     #+#   ##    ##    #+#       */
+/*   Updated: 2019/06/20 16:45:44 by magaspar    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-void	ft_treat_modulo(t_struct *Sprint)
+void	ft_treat_modulo(t_struct *sprint)
 {
 	int i;
 
 	i = 0;
-	Sprint->retSize++;
-	if (Sprint->width == 0 || Sprint->width == 1)
+	sprint->retsize++;
+	if (sprint->width == 0 || sprint->width == 1)
 		ft_putchar('%');
-	else if (Sprint->width > 0 && Sprint->flagZer == 0 && Sprint->flagMin == 0)
+	else if (sprint->width > 0 && sprint->flagzer == 0 && sprint->flagmin == 0)
 	{
-		while(i < Sprint->width - 1)
+		while (i < sprint->width - 1)
 		{
 			ft_putchar(' ');
-			if (i == Sprint->width - 2)
+			if (i == sprint->width - 2)
 				ft_putchar('%');
-			Sprint->retSize++;
+			sprint->retsize++;
 			i++;
 		}
 	}
-	else if (Sprint->width > 0 && Sprint->flagMin == 1 && Sprint->flagZer == 0)
+	else if (sprint->width > 0 && sprint->flagmin == 1 && sprint->flagzer == 0)
 	{
-		while(i < Sprint->width - 1)
-		{
-			if (i == 0)
-				ft_putchar('%');
-			ft_putchar(' ');
-			Sprint->retSize++;
-			i++;
-		}
-	}
-	else if (Sprint->width > 0 && Sprint->flagMin == 1 && Sprint->flagZer == 1)
-	{
-		while(i < Sprint->width - 1)
+		while (i < sprint->width - 1)
 		{
 			if (i == 0)
 				ft_putchar('%');
 			ft_putchar(' ');
-			Sprint->retSize++;
+			sprint->retsize++;
 			i++;
 		}
 	}
-	else if (Sprint->width > 0 && Sprint->flagMin == 0 && Sprint->flagZer == 1)
+	else if (sprint->width > 0 && sprint->flagmin == 1 && sprint->flagzer == 1)
 	{
-		while(i < Sprint->width - 1)
+		while (i < sprint->width - 1)
+		{
+			if (i == 0)
+				ft_putchar('%');
+			ft_putchar(' ');
+			sprint->retsize++;
+			i++;
+		}
+	}
+	else if (sprint->width > 0 && sprint->flagmin == 0 && sprint->flagzer == 1)
+	{
+		while (i < sprint->width - 1)
 		{
 			ft_putchar('0');
-			if (i == Sprint->width - 2)
+			if (i == sprint->width - 2)
 				ft_putchar('%');
-			Sprint->retSize++;
+			sprint->retsize++;
 			i++;
 		}
 	}

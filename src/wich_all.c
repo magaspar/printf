@@ -1,19 +1,32 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   wich_all.c                                       .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/06/20 17:03:14 by magaspar     #+#   ##    ##    #+#       */
+/*   Updated: 2019/06/20 17:05:11 by magaspar    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int		wich_prec(char *format, t_struct *Sprint, int i)
+int		wich_prec(char *format, t_struct *sprint, int i)
 {
 	int num;
 
 	num = 0;
 	if (ft_strchar("0123456789", format[i + 1]) == 0)
 	{
-		Sprint->precZer = 1;
-		return(i);
+		sprint->preczer = 1;
+		return (i);
 	}
 	else if (ft_strchar("0123456789", format[i + 1]))
 	{
 		i++;
-		while(format[i] >= '0' && format[i] <= '9')
+		while (format[i] >= '0' && format[i] <= '9')
 		{
 			num = num + format[i] - '0';
 			if (ft_strchar("01234567898", format[i + 1]))
@@ -21,17 +34,17 @@ int		wich_prec(char *format, t_struct *Sprint, int i)
 			i++;
 		}
 	}
-	Sprint->prec = num;
-	if (Sprint->prec == 0)
-		Sprint->precZer = 1;
+	sprint->prec = num;
+	if (sprint->prec == 0)
+		sprint->preczer = 1;
 	return (i - 1);
 }
 
-int		wich_size(char *format, int i, t_struct *Sprint)
+int		wich_size(char *format, int i, t_struct *sprint)
 {
 	int tmp;
 
-	tmp = Sprint->size;
+	tmp = sprint->size;
 	if (format[i] == 'h' && format[i + 1] == 'h')
 	{
 		tmp = 2;
@@ -47,42 +60,42 @@ int		wich_size(char *format, int i, t_struct *Sprint)
 	else if (format[i] == 'l')
 		tmp = 3;
 	else if (format[i] == 'L')
-		Sprint->sizeL = 1;
+		sprint->sizel = 1;
 	else if (format[i] == 'z')
 		tmp = 5;
 	else if (format[i] == 'j')
 		tmp = 6;
-	if (tmp > Sprint->size)
-		Sprint->size = tmp;
+	if (tmp > sprint->size)
+		sprint->size = tmp;
 	return (i);
 }
 
-int		wich_width(char *format, t_struct *Sprint, int i)
+int		wich_width(char *format, t_struct *sprint, int i)
 {
 	int num;
 
 	num = 0;
-	while(format[i] >= '0' && format[i] <= '9')
+	while (format[i] >= '0' && format[i] <= '9')
 	{
 		num = num + format[i] - '0';
 		if (ft_strchar("01234567898", format[i + 1]))
 			num = num * 10;
 		i++;
 	}
-	Sprint->width = num;
+	sprint->width = num;
 	return (i - 1);
 }
 
-void	wich_flag(char c, t_struct *Sprint)
+void	wich_flag(char c, t_struct *sprint)
 {
 	if (c == '#')
-		Sprint->flagDiese = 1;
+		sprint->flagdiese = 1;
 	else if (c == '+')
-		Sprint->flagPlus = 1;
+		sprint->flagplus = 1;
 	else if (c == '-')
-		Sprint->flagMin = 1;
+		sprint->flagmin = 1;
 	else if (c == '0')
-		Sprint->flagZer = 1;
+		sprint->flagzer = 1;
 	else if (c == ' ')
-		Sprint->flagSpace = 1;
+		sprint->flagspace = 1;
 }

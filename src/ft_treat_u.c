@@ -1,102 +1,114 @@
+/* ************************************************************************** */
+/*                                                          LE - /            */
+/*                                                              /             */
+/*   ft_treat_u.c                                     .::    .:/ .      .::   */
+/*                                                 +:+:+   +:    +:  +:+:+    */
+/*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
+/*                                                 #+#   #+    #+    #+#      */
+/*   Created: 2019/06/20 17:05:29 by magaspar     #+#   ##    ##    #+#       */
+/*   Updated: 2019/06/20 17:06:11 by magaspar    ###    #+. /#+    ###.fr     */
+/*                                                         /                  */
+/*                                                        /                   */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-
-void	ft_treat_u(t_struct *Sprint)
+void	ft_treat_u(t_struct *sprint)
 {
-	int fields;
-	int min;
-	int i;
-	char *tmp;
+	int		fields;
+	int		min;
+	int		i;
+	char	*tmp;
 
 	min = 0;
 	i = 0;
-	tmp = ft_utoa(Sprint->u_arg);
-	if (Sprint->u_arg == 0 && Sprint->precZer == 1)
+	tmp = ft_utoa(sprint->u_arg);
+	if (sprint->u_arg == 0 && sprint->preczer == 1)
 	{
-		if (Sprint->flagSpace == 1)
+		if (sprint->flagspace == 1)
 		{
-			Sprint->retSize++;
+			sprint->retsize++;
 			ft_putchar(' ');
 		}
 	}
 	else
 	{
 		fields = ft_strlen(tmp);
-		if (fields >= Sprint->width)
+		if (fields >= sprint->width)
 		{
-			if (Sprint->flagSpace == 1)
+			if (sprint->flagspace == 1)
 				ft_putchar(' ');
-			if (Sprint->flagPlus == 1 && min == 0)
+			if (sprint->flagplus == 1 && min == 0)
 				ft_putchar('+');
 			if (min == 1)
 				ft_putchar('-');
-			if (Sprint->prec > ft_strlen(tmp))
+			if (sprint->prec > ft_strlen(tmp))
 			{
-				while(i < Sprint->prec - ft_strlen(tmp))
+				while (i < sprint->prec - ft_strlen(tmp))
 				{
 					ft_putchar('0');
 					i++;
 				}
-				Sprint->retSize += i;
+				sprint->retsize += i;
 			}
 			ft_putst(tmp);
-			Sprint->retSize += fields;
+			sprint->retsize += fields;
 		}
-		else if(fields < Sprint->width)
+		else if (fields < sprint->width)
 		{
-			if (Sprint->flagMin == 1)
+			if (sprint->flagmin == 1)
 			{
-				if (Sprint->flagSpace == 1)
+				if (sprint->flagspace == 1)
 					ft_putchar(' ');
-				if (Sprint->flagPlus == 1 && min == 0)
+				if (sprint->flagplus == 1 && min == 0)
 				{
 					ft_putchar('+');
 					fields++;
 				}
 				if (min == 1)
 					ft_putchar('-');
-				if (Sprint->prec > ft_strlen(tmp))
+				if (sprint->prec > ft_strlen(tmp))
 				{
-					fields = fields + (Sprint->prec - ft_strlen(tmp));
-					Sprint->retSize += putZer(Sprint->prec - ft_strlen(tmp)) - 1;
+					fields = fields + (sprint->prec - ft_strlen(tmp));
+					sprint->retsize += putzer(sprint->prec - ft_strlen(tmp)) - 1;
 				}
 				ft_putst(tmp);
-				putblank(Sprint->width - fields);
+				putblank(sprint->width - fields);
 			}
 			else
 			{
 				if (min == 1)
 				{
-					if (Sprint->prec > ft_strlen(tmp))
+					if (sprint->prec > ft_strlen(tmp))
 					{
-						fields = fields + (Sprint->prec - ft_strlen(tmp));
+						fields = fields + (sprint->prec - ft_strlen(tmp));
 					}
-					if (Sprint->flagZer != 1)
-						putblank(Sprint->width - fields);
+					if (sprint->flagzer != 1)
+						putblank(sprint->width - fields);
 					ft_putchar('-');
 				}
-				if (Sprint->flagSpace == 1)
+				if (sprint->flagspace == 1)
 					ft_putchar(' ');
-				if (Sprint->flagPlus == 1)
+				if (sprint->flagplus == 1)
 				{
-					Sprint->retSize--;
+					sprint->retsize--;
 					fields++;
 				}
-				if (Sprint->flagZer == 1 && Sprint->prec == 0 && Sprint->precZer == 0)
-					putZer(Sprint->width - fields);
+				if (sprint->flagzer == 1 && sprint->prec == 0 && sprint->preczer == 0)
+					putzer(sprint->width - fields);
 				else if (min != 1)
 				{
-					if (Sprint->prec > ft_strlen(tmp))
+					if (sprint->prec > ft_strlen(tmp))
 					{
-						fields = fields + (Sprint->prec - ft_strlen(tmp));
+						fields = fields + (sprint->prec - ft_strlen(tmp));
 					}
-					putblank(Sprint->width - fields);
+					putblank(sprint->width - fields);
 				}
-				if (Sprint->flagPlus == 1 && min == 0)
+				if (sprint->flagplus == 1 && min == 0)
 					ft_putchar('+');
-				if (Sprint->prec > ft_strlen(tmp))
+				if (sprint->prec > ft_strlen(tmp))
 				{
-					while(i < Sprint->prec - ft_strlen(tmp))
+					while (i < sprint->prec - ft_strlen(tmp))
 					{
 						ft_putchar('0');
 						i++;
@@ -104,15 +116,15 @@ void	ft_treat_u(t_struct *Sprint)
 				}
 				ft_putst(tmp);
 			}
-			Sprint->retSize = Sprint->retSize + Sprint->width;
+			sprint->retsize = sprint->retsize + sprint->width;
 		}
-		if (Sprint->flagSpace == 1)
+		if (sprint->flagspace == 1)
 		{
-			Sprint->retSize = Sprint->retSize + 1;
+			sprint->retsize = sprint->retsize + 1;
 		}
-		if (Sprint->flagPlus == 1 && min == 0)
+		if (sprint->flagplus == 1 && min == 0)
 		{
-			Sprint->retSize = Sprint->retSize + 1;
+			sprint->retsize = sprint->retsize + 1;
 		}
 	}
 	free(tmp);
