@@ -6,7 +6,7 @@
 /*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/20 16:56:18 by magaspar     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/20 17:21:19 by magaspar    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/27 19:23:06 by magaspar    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -53,7 +53,7 @@ void		get_and_treat_arg(t_struct *sprint)
 			sprint->arg = (char)va_arg(sprint->ap, long long int);
 		else if (sprint->size == 3 || sprint->type == 'D')
 			sprint->arg = (long int)va_arg(sprint->ap, long long int);
-		else if (sprint->size == 4)
+		else if (sprint->size == 4 || sprint->size == 5 || sprint->size == 6)
 			sprint->arg = (long long int)va_arg(sprint->ap, long long int);
 		else
 			sprint->arg = (int)va_arg(sprint->ap, long long int);
@@ -63,7 +63,7 @@ void		get_and_treat_arg(t_struct *sprint)
 			sprint->type == 'x' || sprint->type == 'X' ||
 			sprint->type == 'U' || sprint->type == 'O')
 	{
-		if (sprint->size == 1)
+		if (sprint->size == 1 && sprint->type != 'U')
 			sprint->u_arg = (unsigned short)va_arg(sprint->ap, unsigned int);
 		else if (sprint->size == 2)
 			sprint->u_arg = (unsigned char)va_arg(sprint->ap, unsigned int);

@@ -6,7 +6,7 @@
 /*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/20 16:44:36 by magaspar     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/20 17:02:46 by magaspar    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/27 18:35:04 by magaspar    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -33,13 +33,22 @@ void	ft_treat_d(t_struct *sprint)
 	int		i;
 	char	*tmp;
 	int		ut;
+	int		t;
 
 	min = 0;
 	i = 0;
 	ut = 0;
 	fields = 0;
+	t = 0;
 	if (sprint->arg < 0)
+	{
 		tmp = ft_itoa(-sprint->arg);
+		if (ft_strchar(tmp, '-'))
+		{
+			free(tmp);
+			tmp = ft_strdup("9223372036854775808");
+		}
+	}
 	else
 		tmp = ft_itoa(sprint->arg);
 	if (sprint->arg == 0 && sprint->preczer == 1)
@@ -55,6 +64,8 @@ void	ft_treat_d(t_struct *sprint)
 			ft_putchar(' ');
 			fields++;
 		}
+		if (sprint->width > 0)
+			sprint->retsize += putblank(sprint->width);
 	}
 	else
 	{
@@ -70,7 +81,7 @@ void	ft_treat_d(t_struct *sprint)
 		}
 		if (fields >= sprint->width)
 		{
-			if (sprint->flagspace == 1 && sprint->prec == 0)
+			if (sprint->flagspace == 1 && sprint->prec == 0 && !sprint->flagplus && !sprint->flagzer && min == 0)
 			{
 				fields++;
 				ft_putchar(' ');
@@ -150,12 +161,18 @@ void	ft_treat_d(t_struct *sprint)
 					ft_putchar(' ');
 					sprint->retsize++;
 				}
-				if (sprint->flagplus == 1)
-				{
+				if (sprint->flagplus == 1 && min != 1)
 					fields++;
-				}
 				if (sprint->flagzer == 1 && sprint->prec == 0 && sprint->preczer == 0)
+				{
+					if (sprint->flagplus == 1 && min == 0)
+					{
+						ft_putchar('+');
+						sprint->retsize++;
+						t = 1;
+					}
 					sprint->retsize += putzer(sprint->width - fields);
+				}
 				else if (min != 1)
 				{
 					if (sprint->prec > ft_countnb(sprint->arg, 10))
@@ -164,7 +181,7 @@ void	ft_treat_d(t_struct *sprint)
 					}
 					sprint->retsize += putblank(sprint->width - fields);
 				}
-				if (sprint->flagplus == 1 && min == 0)
+				if (sprint->flagplus == 1 && min == 0 && t == 0)
 				{
 					ft_putchar('+');
 					sprint->retsize++;

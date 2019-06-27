@@ -6,7 +6,7 @@
 /*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/20 17:06:26 by magaspar     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/20 17:13:27 by magaspar    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/27 18:27:59 by magaspar    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -72,6 +72,7 @@ char					*ft_itoa(long long int j)
 		j = j / 10;
 		i--;
 	}
+
 	return (str);
 }
 
@@ -95,7 +96,7 @@ char					*ft_utoa(unsigned long long int j)
 	return (str);
 }
 
-void					ft_putnbr(int nb)
+void					ft_putnbr(long long nb)
 {
 	unsigned int n;
 

@@ -6,7 +6,7 @@
 /*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/20 17:13:31 by magaspar     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/20 17:14:26 by magaspar    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/27 16:56:16 by magaspar    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -140,6 +140,15 @@ void	ft_treat_x(t_struct *sprint)
 					if (sprint->flagdiese == 1)
 						i -= 2;
 					fields += i;
+				}
+				if (min == 0 && sprint->flagdiese)
+				{
+					i++;
+					min++;
+					if (sprint->type == 'x')
+						sprint->retsize += ft_putst("0x");
+					else if (sprint->type == 'X')
+						sprint->retsize += ft_putst("0X");
 				}
 				sprint->retsize += ft_putst(tmp);
 				sprint->retsize += putblank(sprint->width - fields);

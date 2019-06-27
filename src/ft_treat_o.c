@@ -6,7 +6,7 @@
 /*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/20 16:57:03 by magaspar     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/20 17:00:00 by magaspar    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/27 17:50:59 by magaspar    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -35,6 +35,8 @@ void	ft_treat_o(t_struct *sprint)
 			sprint->retsize++;
 			ft_putchar('0');
 		}
+		if (sprint->width > 0)
+			sprint->retsize += putblank(sprint->width);
 	}
 	else
 	{

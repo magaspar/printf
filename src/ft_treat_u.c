@@ -6,7 +6,7 @@
 /*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/20 17:05:29 by magaspar     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/20 17:06:11 by magaspar    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/27 18:49:21 by magaspar    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -25,21 +25,13 @@ void	ft_treat_u(t_struct *sprint)
 	tmp = ft_utoa(sprint->u_arg);
 	if (sprint->u_arg == 0 && sprint->preczer == 1)
 	{
-		if (sprint->flagspace == 1)
-		{
-			sprint->retsize++;
-			ft_putchar(' ');
-		}
+		min = 0;
 	}
 	else
 	{
 		fields = ft_strlen(tmp);
 		if (fields >= sprint->width)
 		{
-			if (sprint->flagspace == 1)
-				ft_putchar(' ');
-			if (sprint->flagplus == 1 && min == 0)
-				ft_putchar('+');
 			if (min == 1)
 				ft_putchar('-');
 			if (sprint->prec > ft_strlen(tmp))
@@ -117,14 +109,6 @@ void	ft_treat_u(t_struct *sprint)
 				ft_putst(tmp);
 			}
 			sprint->retsize = sprint->retsize + sprint->width;
-		}
-		if (sprint->flagspace == 1)
-		{
-			sprint->retsize = sprint->retsize + 1;
-		}
-		if (sprint->flagplus == 1 && min == 0)
-		{
-			sprint->retsize = sprint->retsize + 1;
 		}
 	}
 	free(tmp);

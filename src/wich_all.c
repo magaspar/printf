@@ -6,7 +6,7 @@
 /*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/20 17:03:14 by magaspar     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/20 17:05:11 by magaspar    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/27 18:36:42 by magaspar    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -52,13 +52,13 @@ int		wich_size(char *format, int i, t_struct *sprint)
 	}
 	else if (format[i] == 'h')
 		tmp = 1;
+	else if (format[i] == 'l')
+		tmp = 3;
 	else if (format[i] == 'l' && format[i + 1] == 'l')
 	{
 		tmp = 4;
 		i++;
 	}
-	else if (format[i] == 'l')
-		tmp = 3;
 	else if (format[i] == 'L')
 		sprint->sizel = 1;
 	else if (format[i] == 'z')

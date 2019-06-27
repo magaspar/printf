@@ -6,7 +6,7 @@
 /*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/20 16:12:35 by magaspar     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/20 17:17:08 by magaspar    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/27 18:12:04 by magaspar    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -56,7 +56,7 @@ char					*ft_strneww(size_t size);
 char					*ft_strrev(char *str);
 int						ft_countnb(uintmax_t nbr, int baselen);
 char					*ft_itoabase(uintmax_t i, char *base, int baselen);
-void					ft_putnbr(int n);
+void					ft_putnbr(long long n);
 char					*ft_itoa(long long int n);
 char					*ft_utoa(unsigned long long n);
 int						ft_putst(char *str);
