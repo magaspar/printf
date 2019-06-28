@@ -6,7 +6,7 @@
 /*   By: magaspar <marvin@le-101.fr>                +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/06/20 16:56:18 by magaspar     #+#   ##    ##    #+#       */
-/*   Updated: 2019/06/27 19:23:06 by magaspar    ###    #+. /#+    ###.fr     */
+/*   Updated: 2019/06/28 16:32:41 by magaspar    ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -173,6 +173,8 @@ int			ft_printf(char *format, ...)
 		}
 		else if (formatt[i] != '\0')
 		{
+			if (formatt[i] == '%' && formatt[i + 1] == '\0')
+				break;
 			ft_putchar(formatt[i]);
 			sprint->retsize++;
 			i++;

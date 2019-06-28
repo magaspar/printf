@@ -3,7 +3,8 @@
 int main()
 {
 
-	//ft_printf("%");
-	printf("%");
+	printf("%d\n", ft_printf("%4.15u\n", 42));
+	printf("%d\n", printf("%4.15u\n", 42));
+
 	return(0);
 }
